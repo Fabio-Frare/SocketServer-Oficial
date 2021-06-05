@@ -1,5 +1,6 @@
 package br.com.udesc.server.utils;
 
+import br.com.udesc.server.model.Empresa;
 import br.com.udesc.server.model.Pessoa;
 
 /**
@@ -38,6 +39,28 @@ public class Utils {
 //        System.out.println("\ncpg: " +pessoa.getCnpjEmpresa());
 
         return pessoa;
+    }
+
+    public Empresa converteStringEmpresa(String msg) {
+        Empresa empresa = new Empresa();
+
+        String nome = msg.substring(21, 120);
+        empresa.setNome(reverteConversao(nome));
+//        System.out.println("\nnome: " +pessoa.getNome());
+
+        String cpf = msg.substring(7, 20);
+        empresa.setCnpj(reverteConversao(cpf));
+//        System.out.println("\ncpf: " +pessoa.getCpf());
+
+        String endereco = msg.substring(121, 220);
+        empresa.setEndereco(reverteConversao(endereco));
+//        System.out.println("\nendereço: " +pessoa.getEndereco());
+
+        String cpfPessoa = msg.substring(221, 232);
+        empresa.getPessoas().add(reverteConversao(cpfPessoa));
+//        System.out.println("\ncpg: " +pessoa.getCnpjEmpresa());
+
+        return empresa;
     }
 
     private String reverteConversao(String variavel) {
