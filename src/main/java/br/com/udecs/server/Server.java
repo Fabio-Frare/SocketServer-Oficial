@@ -1,6 +1,5 @@
 package br.com.udecs.server;
 
-import br.com.udecs.server.controller.ControllerPessoa;
 import br.com.udesc.server.datasource.Datasource;
 import br.com.udesc.server.model.Empresa;
 import br.com.udesc.server.model.Pessoa;
@@ -91,16 +90,28 @@ public class Server {
                     String cpf = msg.substring(7, msg.length());
                     System.out.println("cpf " + cpf);
                     msg = datasource.buscaPessoa(cpf);
-                    System.out.println("GET pessoa " + msg);
+//                    System.out.println("GET pessoa " + msg);
                     enviarDados(msg);
                 }
                 if(entidade.equalsIgnoreCase("2")) {
-                    String cnpj = msg.substring(8, 21);
-                    
+                    String cnpj = msg.substring(7, msg.length());
+                    System.out.println("CNPJ: " + cnpj);
+                    msg = datasource.buscaEmpresa(cnpj);
+                    enviarDados(msg);
                 }
                 break;
             case "DELETE":
-
+                if(entidade.equalsIgnoreCase("1")) {
+                    String cpf = msg.substring(7, msg.length()); 
+                    msg = datasource.deletaPessoa(cpf);
+                    enviarDados(msg);
+                }
+                if(entidade.equalsIgnoreCase("2")) {
+                    String cnpj = msg.substring(7, msg.length());
+                    System.out.println("CNPJ: " + cnpj);
+                    msg = datasource.deletaEmpresa(cnpj);
+                    enviarDados(msg);
+                }
                 break;
             case "LIST**":
                 if (entidade.equalsIgnoreCase("1")) {
@@ -128,15 +139,15 @@ public class Server {
     public static void metodoCriarObjetos() {
         Empresa empresa = new Empresa();
         empresa.setNome("Singular Sistemas");
-        empresa.setCnpj("12345678000101");
+        empresa.setCnpj("123");
 
         Empresa empresa2 = new Empresa();
         empresa2.setNome("Dalila Têxtil");
-        empresa2.setCnpj("99999999999999");
+        empresa2.setCnpj("321");
 
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Fábio Frare");
-        pessoa.setCpf("04839577777");
+        pessoa.setCpf("123");
         pessoa.setEndereco("Rua 7 de setembro");
         pessoa.setCnpjEmpresa(empresa.getCnpj());
 

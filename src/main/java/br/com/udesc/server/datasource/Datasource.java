@@ -78,6 +78,18 @@ public class Datasource {
 //        System.out.println("pessoas " + pessoas);
         return "Pessoa não encontrada.";
     }
+    
+    public String deletaPessoa(String cpf) {
+        for (int i = 0; i < dadosPessoas.size(); i++) {
+            System.out.println("deletar Pessoa: " + dadosPessoas.get(i).getCpf());
+            if (dadosPessoas.get(i).getCpf().equalsIgnoreCase(cpf)) {
+                dadosPessoas.remove(dadosPessoas.get(i));
+//                System.out.println("pessoas: " + dadosPessoas.get(i).getNome());
+                return "Pessoa excluída com sucesso.";
+            }
+        }
+        return "Empresa não encontrada.";
+    }
 
     public String ListaEmpresas() throws IOException {
         String empresas = "";
@@ -88,21 +100,47 @@ public class Datasource {
         return empresas;
     }
 
+    public String buscaEmpresa(String cnpj) {
+        String empresas = "";
+        for (var empresa : dadosEmpresas) {
+            if (empresa.getCnpj().equals(cnpj)) {
+                empresas += "Nome: " + empresa.getNome() + " CNPJ: " + empresa.getCnpj() + "Endereço: " + empresa.getEndereco();
+                return empresas;
+            }
+        }
+        return "Empresa não encontrada.";
+    }
+    
+    public String deletaEmpresa(String cnpj) {
+        for (int i = 0; i < dadosEmpresas.size(); i++) {
+            System.out.println("deletar Empresa: " + dadosEmpresas.get(i).getCnpj());
+            if (dadosEmpresas.get(i).getCnpj().equalsIgnoreCase(cnpj)) {
+                dadosEmpresas.remove(dadosEmpresas.get(i));
+//                System.out.println("empresas: " + dadosEmpresas.get(i).getNome());
+                return "Empresa excluída com sucesso.";
+            }
+        }
+        return "Empresa não encontrada.";
+    }
+    
+
     public void metodoCriarObjetos() {
         Empresa empresa = new Empresa();
         empresa.setNome("Singular Sistemas");
-        empresa.setCnpj("12345678000101");
+        empresa.setCnpj("123");
+        empresa.setEndereco("Rua 7 de setembro");
 
         Empresa empresa2 = new Empresa();
         empresa2.setNome("Dalila Têxtil");
-        empresa2.setCnpj("99999999999999");
+        empresa2.setCnpj("456");
+        empresa2.setEndereco("Rua Mirador");
 
 //        System.out.println("metodo criar empresa: ");
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Fábio Frare");
-        pessoa.setCpf("04839577777");
+        pessoa.setCpf("123");
         pessoa.setEndereco("Rua 7 de setembro");
-        pessoa.setCnpjEmpresa(empresa.getCnpj());
+//        pessoa.setCnpjEmpresa(empresa.getCnpj());
 //        empresa.getPessoas().add(pessoa.getCpf());
 
         dadosPessoas.add(pessoa);
