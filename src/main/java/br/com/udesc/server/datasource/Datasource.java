@@ -4,6 +4,7 @@ import br.com.udecs.server.Server;
 import br.com.udesc.server.model.Empresa;
 import br.com.udesc.server.model.Pessoa;
 import br.com.udesc.server.utils.Utils;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,6 @@ public class Datasource {
 
         pessoa = utils.converteStringPessoa(msg);
         dadosPessoas.add(pessoa);
-//        ListaEmpresas();
 //        ListaPessoas();
     }
 
@@ -61,15 +61,29 @@ public class Datasource {
     public String ListaPessoas() {
         String pessoas = "";
         for (var pessoa : dadosPessoas) {
-            pessoas += "Nome: "+ pessoa.getNome() + " CPF: " + pessoa.getCpf() + " || ";
+            pessoas += "Nome: " + pessoa.getNome() + " CPF: " + pessoa.getCpf() + " || ";
         }
         return pessoas;
     }
 
-    public String ListaEmpresas() {
+    public String buscaPessoa(String cpf) {
+//        System.out.println("CPF " + cpf);
+        String pessoas = "";
+        for (var pessoa : dadosPessoas) {
+            if (pessoa.getCpf().equals(cpf)) {
+                pessoas += "Nome: " + pessoa.getNome() + " CPF: " + pessoa.getCpf() + "Endereço: " + pessoa.getEndereco();
+                return pessoas;
+            }
+        }
+//        System.out.println("pessoas " + pessoas);
+        return "Pessoa não encontrada.";
+    }
+
+    public String ListaEmpresas() throws IOException {
         String empresas = "";
         for (var empresa : dadosEmpresas) {
             empresas += "Nome: " + empresa.getNome() + " CNPJ: " + empresa.getCnpj() + " || ";
+//            System.out.println("datasourceEmpresa:  "+ empresa.getNome());
         }
         return empresas;
     }

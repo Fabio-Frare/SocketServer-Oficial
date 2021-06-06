@@ -28,7 +28,7 @@ public class Utils {
 
         String cpf = msg.substring(7, 17);
         pessoa.setCpf(reverteConversao(cpf));
-//        System.out.println("\ncpf: " +pessoa.getCpf());
+        System.out.println("\ncpf: " +pessoa.getCpf());
 
         String endereco = msg.substring(118, 217);
         pessoa.setEndereco(reverteConversao(endereco));
@@ -46,19 +46,19 @@ public class Utils {
 
         String nome = msg.substring(21, 120);
         empresa.setNome(reverteConversao(nome));
-//        System.out.println("\nnome: " +pessoa.getNome());
+        System.out.println("\nnome: " +empresa.getNome());
 
-        String cpf = msg.substring(7, 20);
-        empresa.setCnpj(reverteConversao(cpf));
-//        System.out.println("\ncpf: " +pessoa.getCpf());
+        String cnpj = msg.substring(7, 20);
+        empresa.setCnpj(reverteConversao(cnpj));
+        System.out.println("\ncpf: " +empresa.getCnpj());
 
         String endereco = msg.substring(121, 220);
         empresa.setEndereco(reverteConversao(endereco));
-//        System.out.println("\nendereço: " +pessoa.getEndereco());
+        System.out.println("\nendereço: " +empresa.getEndereco());
 
-        String cpfPessoa = msg.substring(221, 232);
-        empresa.getPessoas().add(reverteConversao(cpfPessoa));
-//        System.out.println("\ncpg: " +pessoa.getCnpjEmpresa());
+//        String cpfPessoa = msg.substring(221, 232);
+//        empresa.getPessoas().add(reverteConversao(cpfPessoa));
+//        System.out.println("\ncpg: " +empresa.getPessoas());
 
         return empresa;
     }

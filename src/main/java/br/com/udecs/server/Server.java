@@ -1,5 +1,6 @@
 package br.com.udecs.server;
 
+import br.com.udecs.server.controller.ControllerPessoa;
 import br.com.udesc.server.datasource.Datasource;
 import br.com.udesc.server.model.Empresa;
 import br.com.udesc.server.model.Pessoa;
@@ -52,7 +53,7 @@ public class Server {
     public static void enviarDados(String msg) throws IOException {
         pr = new PrintWriter(s.getOutputStream());
         pr.println(msg);
-        System.out.println("enviar dados " + msg);
+        System.out.println("enviar dados: " + msg);
         pr.flush();
     }
 
@@ -61,37 +62,45 @@ public class Server {
         String operacao = msg.substring(1, 7);
 
         System.out.println("msg " + msg);
-//        System.out.println("entidade " + entidade);
-//        System.out.println("operacao " + operacao);
+        System.out.println("entidade " + entidade);
+        System.out.println("operacao " + operacao);
 
         switch (operacao) {
             case "INSERT":
                 if (entidade.equalsIgnoreCase("1")) {
                     datasource.addPessoa(msg);
-                } else {
+                }
+                if (entidade.equalsIgnoreCase("2")) {
                     datasource.addEmpresa(msg);
                 }
                 break;
             case "UPDATE":
                 if (entidade.equalsIgnoreCase("1")) {
-                    datasource.addPessoa(msg);
-                } else {
-                    datasource.addEmpresa(msg);
+                    msg = datasource.ListaPessoas();
+                    System.out.println("entrou switch case update pessoa" + msg);
+                    enviarDados(msg);
+                }
+                if (entidade.equalsIgnoreCase("2")) {
+                    msg = datasource.ListaEmpresas();
+                    System.out.println("entrou switch case update empresa" + msg);
+                    enviarDados(msg);
                 }
                 break;
             case "GET***":
                 if (entidade.equalsIgnoreCase("1")) {
-                    datasource.addPessoa(msg);
-                } else {
-                    datasource.addEmpresa(msg);
+                    String cpf = msg.substring(7, msg.length());
+                    System.out.println("cpf " + cpf);
+                    msg = datasource.buscaPessoa(cpf);
+                    System.out.println("GET pessoa " + msg);
+                    enviarDados(msg);
+                }
+                if(entidade.equalsIgnoreCase("2")) {
+                    String cnpj = msg.substring(8, 21);
+                    
                 }
                 break;
             case "DELETE":
-                if (entidade.equalsIgnoreCase("1")) {
-                    datasource.addPessoa(msg);
-                } else {
-                    datasource.addEmpresa(msg);
-                }
+
                 break;
             case "LIST**":
                 if (entidade.equalsIgnoreCase("1")) {
@@ -100,19 +109,18 @@ public class Server {
                     enviarDados(msg);
 //                    System.out.println("saiu switch case listar pessoa" + msg);
                     receberDados();
-                } else {
+                }
+                if (entidade.equalsIgnoreCase("2")) {
                     msg = datasource.ListaEmpresas();
                     System.out.println("entrou switch case listar empresa" + msg);
                     enviarDados(msg);
 //                    System.out.println("saiu switch case listar empresa" + msg);
                     receberDados();
                 }
-
                 break;
             default:
                 System.out.println("Default switch case server.");
                 break;
-
         }
 
     }
