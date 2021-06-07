@@ -1,8 +1,6 @@
 package br.com.udecs.server;
 
 import br.com.udesc.server.datasource.Datasource;
-import br.com.udesc.server.model.Empresa;
-import br.com.udesc.server.model.Pessoa;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -1,10 +1,9 @@
 package br.com.udesc.server.datasource;
 
-import br.com.udecs.server.Server;
+
 import br.com.udesc.server.model.Empresa;
 import br.com.udesc.server.model.Pessoa;
 import br.com.udesc.server.utils.Utils;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
