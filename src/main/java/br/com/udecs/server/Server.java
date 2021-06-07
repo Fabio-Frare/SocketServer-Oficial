@@ -26,15 +26,12 @@ public class Server {
         ss.setReuseAddress(true);
 
         while (true) {
-
             receberDados();
-//            enviarDados();
-
         }
+        
     }
 
     public static void receberDados() throws IOException {
-
         s = ss.accept();
         System.out.println("Cliente connected");
 
@@ -42,15 +39,11 @@ public class Server {
         BufferedReader bf = new BufferedReader(in);
         String str = bf.readLine();
         trataDados(str);
-
-//        System.out.println("str.lenght: " + str.length());
-//        System.out.println("Client: " + str);
     }
 
     public static void enviarDados(String msg) throws IOException {
         pr = new PrintWriter(s.getOutputStream());
         pr.println(msg);
-        System.out.println("enviar dados: " + msg);
         pr.flush();
     }
 
@@ -65,46 +58,43 @@ public class Server {
         switch (operacao) {
             case "INSERT":
                 if (entidade.equalsIgnoreCase("1")) {
-                    datasource.addPessoa(msg);
+                    msg = datasource.addPessoa(msg);
+                    enviarDados(msg);
                 }
                 if (entidade.equalsIgnoreCase("2")) {
-                    datasource.addEmpresa(msg);
+                    msg = datasource.addEmpresa(msg);
+                    enviarDados(msg);
                 }
                 break;
             case "UPDATE":
                 if (entidade.equalsIgnoreCase("1")) {
                     msg = datasource.atualizaPessoa(msg);
-//                    System.out.println("entrou switch case update pessoa" + msg);
                     enviarDados(msg);
                 }
                 if (entidade.equalsIgnoreCase("2")) {
                     msg = datasource.atualizaEmpresa(msg);
-//                    System.out.println("entrou switch case update empresa" + msg);
                     enviarDados(msg);
                 }
                 break;
             case "GET***":
                 if (entidade.equalsIgnoreCase("1")) {
                     String cpf = msg.substring(7, msg.length());
-//                    System.out.println("cpf " + cpf);
                     msg = datasource.buscaPessoa(cpf);
-//                    System.out.println("GET pessoa " + msg);
                     enviarDados(msg);
                 }
-                if(entidade.equalsIgnoreCase("2")) {
+                if (entidade.equalsIgnoreCase("2")) {
                     String cnpj = msg.substring(7, msg.length());
-//                    System.out.println("CNPJ: " + cnpj);
                     msg = datasource.buscaEmpresa(cnpj);
                     enviarDados(msg);
                 }
                 break;
             case "DELETE":
-                if(entidade.equalsIgnoreCase("1")) {
-                    String cpf = msg.substring(7, msg.length()); 
+                if (entidade.equalsIgnoreCase("1")) {
+                    String cpf = msg.substring(7, msg.length());
                     msg = datasource.deletaPessoa(cpf);
                     enviarDados(msg);
                 }
-                if(entidade.equalsIgnoreCase("2")) {
+                if (entidade.equalsIgnoreCase("2")) {
                     String cnpj = msg.substring(7, msg.length());
                     System.out.println("CNPJ: " + cnpj);
                     msg = datasource.deletaEmpresa(cnpj);
@@ -114,16 +104,12 @@ public class Server {
             case "LIST**":
                 if (entidade.equalsIgnoreCase("1")) {
                     msg = datasource.ListaPessoas();
-                    System.out.println("entrou switch case listar pessoa" + msg);
                     enviarDados(msg);
-//                    System.out.println("saiu switch case listar pessoa" + msg);
                     receberDados();
                 }
                 if (entidade.equalsIgnoreCase("2")) {
                     msg = datasource.ListaEmpresas();
-                    System.out.println("entrou switch case listar empresa" + msg);
                     enviarDados(msg);
-//                    System.out.println("saiu switch case listar empresa" + msg);
                     receberDados();
                 }
                 break;
@@ -131,8 +117,6 @@ public class Server {
                 System.out.println("Default switch case server.");
                 break;
         }
-
     }
 
-    
 }

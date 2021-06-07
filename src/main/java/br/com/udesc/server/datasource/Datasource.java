@@ -1,5 +1,6 @@
 package br.com.udesc.server.datasource;
 
+import br.com.udecs.server.Server;
 import br.com.udesc.server.model.Empresa;
 import br.com.udesc.server.model.Pessoa;
 import br.com.udesc.server.utils.Utils;
@@ -23,22 +24,24 @@ public class Datasource {
         metodoCriarObjetos();
     }
 
-    public void addPessoa(String msg) {
-//        System.out.println("Datasource pessoa:" + msg);
+    public String addPessoa(String msg) {
         pessoa = new Pessoa();
         utils = new Utils();
 
         pessoa = utils.converteStringPessoa(msg);
         dadosPessoas.add(pessoa);
-//        ListaPessoas();
+
+        return "Pessoa inserida com sucesso.";
     }
 
-    public void addEmpresa(String msg) {
+    public String addEmpresa(String msg) {
         this.empresa = new Empresa();
         utils = new Utils();
 
         empresa = utils.converteStringEmpresa(msg);
         dadosEmpresas.add(empresa);
+
+        return "Empresa inserida com sucesso.";
     }
 
     public List<Pessoa> getDadosPessoas() {
@@ -60,13 +63,16 @@ public class Datasource {
     public String ListaPessoas() {
         String pessoas = "";
         for (var pessoa : dadosPessoas) {
-            pessoas += "Nome: " + pessoa.getNome() + " CPF: " + pessoa.getCpf() + " || ";
+            pessoas += "Nome: "     + pessoa.getNome()
+                    + " CPF: "      + pessoa.getCpf()
+                    + " Endereço: " + pessoa.getEndereco()
+                    + "Empresa: "   + pessoa.getCnpjEmpresa()
+                    + " || ";
         }
         return pessoas;
     }
 
     public String buscaPessoa(String cpf) {
-//        System.out.println("CPF " + cpf);
         String pessoas = "";
         for (var pessoa : dadosPessoas) {
             if (pessoa.getCpf().equals(cpf)) {
@@ -74,7 +80,6 @@ public class Datasource {
                 return pessoas;
             }
         }
-//        System.out.println("pessoas " + pessoas);
         return "Pessoa não encontrada.";
     }
 
@@ -83,18 +88,16 @@ public class Datasource {
             System.out.println("deletar Pessoa: " + dadosPessoas.get(i).getCpf());
             if (dadosPessoas.get(i).getCpf().equalsIgnoreCase(cpf)) {
                 dadosPessoas.remove(dadosPessoas.get(i));
-//                System.out.println("pessoas: " + dadosPessoas.get(i).getNome());
                 return "Pessoa excluída com sucesso.";
             }
         }
         return "Empresa não encontrada.";
     }
 
-    public String ListaEmpresas() throws IOException {
+    public String ListaEmpresas() {
         String empresas = "";
         for (var empresa : dadosEmpresas) {
-            empresas += "Nome: " + empresa.getNome() + " CNPJ: " + empresa.getCnpj() + " || ";
-//            System.out.println("datasourceEmpresa:  "+ empresa.getNome());
+            empresas += "Nome: " + empresa.getNome() + " CNPJ: " + empresa.getCnpj() + " Endereço: " + empresa.getEndereco() + " || ";
         }
         return empresas;
     }

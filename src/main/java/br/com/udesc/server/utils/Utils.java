@@ -24,19 +24,15 @@ public class Utils {
 
         String nome = msg.substring(18, 118);
         pessoa.setNome(reverteConversao(nome));
-        System.out.println("\nnome: " +pessoa.getNome());
 
         String cpf = msg.substring(7, 18);
         pessoa.setCpf(reverteConversao(cpf));
-        System.out.println("\ncpf: " +pessoa.getCpf());
 
         String endereco = msg.substring(118, 217);
         pessoa.setEndereco(reverteConversao(endereco));
-        System.out.println("\nendereço: " +pessoa.getEndereco());
 
-        String cnpjEmpresa = msg.substring(218, 231);
+        String cnpjEmpresa = msg.substring(218, 232);
         pessoa.setCnpjEmpresa(reverteConversao(cnpjEmpresa));
-//        System.out.println("\ncpg: " +pessoa.getCnpjEmpresa());
 
         return pessoa;
     }
@@ -46,15 +42,12 @@ public class Utils {
 
         String nome = msg.substring(21, 120);
         empresa.setNome(reverteConversao(nome));
-        System.out.println("\nnome: " +empresa.getNome());
 
         String cnpj = msg.substring(7, 20);
         empresa.setCnpj(reverteConversao(cnpj));
-        System.out.println("\ncpf: " +empresa.getCnpj());
 
         String endereco = msg.substring(121, 220);
         empresa.setEndereco(reverteConversao(endereco));
-        System.out.println("\nendereço: " +empresa.getEndereco());
 
 //        String cpfPessoa = msg.substring(221, 232);
 //        empresa.getPessoas().add(reverteConversao(cpfPessoa));
@@ -66,4 +59,5 @@ public class Utils {
     public String reverteConversao(String variavel) {
         return variavel.replaceAll("\\*", " ").trim();
     }
+    
 }
