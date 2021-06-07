@@ -1,6 +1,5 @@
 package br.com.udesc.server.datasource;
 
-import br.com.udecs.server.Server;
 import br.com.udesc.server.model.Empresa;
 import br.com.udesc.server.model.Pessoa;
 import br.com.udesc.server.utils.Utils;
@@ -26,7 +25,7 @@ public class Datasource {
 
     public void addPessoa(String msg) {
 //        System.out.println("Datasource pessoa:" + msg);
-        this.pessoa = new Pessoa();
+        pessoa = new Pessoa();
         utils = new Utils();
 
         pessoa = utils.converteStringPessoa(msg);
@@ -78,7 +77,7 @@ public class Datasource {
 //        System.out.println("pessoas " + pessoas);
         return "Pessoa não encontrada.";
     }
-    
+
     public String deletaPessoa(String cpf) {
         for (int i = 0; i < dadosPessoas.size(); i++) {
             System.out.println("deletar Pessoa: " + dadosPessoas.get(i).getCpf());
@@ -110,7 +109,7 @@ public class Datasource {
         }
         return "Empresa não encontrada.";
     }
-    
+
     public String deletaEmpresa(String cnpj) {
         for (int i = 0; i < dadosEmpresas.size(); i++) {
             System.out.println("deletar Empresa: " + dadosEmpresas.get(i).getCnpj());
@@ -122,7 +121,32 @@ public class Datasource {
         }
         return "Empresa não encontrada.";
     }
-    
+
+    public String atualizaPessoa(String msg) {
+        utils = new Utils();
+        String cpf = utils.reverteConversao(msg.substring(7, 18));
+        pessoa = utils.converteStringPessoa(msg);
+        for (int i = 0; i < dadosPessoas.size(); i++) {
+            if (dadosPessoas.get(i).getCpf().equalsIgnoreCase(cpf)) {
+                dadosPessoas.set(i, pessoa);
+                return "Pessoa atualizado com sucesso.";
+            }
+        }
+        return "Atualização de pessoa não efetuada.";
+    }
+
+    public String atualizaEmpresa(String msg) {
+        utils = new Utils();
+        String cnpj = utils.reverteConversao(msg.substring(7, 21));
+        empresa = utils.converteStringEmpresa(msg);
+        for (int i = 0; i < dadosEmpresas.size(); i++) {
+            if (dadosEmpresas.get(i).getCnpj().equalsIgnoreCase(cnpj)) {
+                dadosEmpresas.set(i, empresa);
+                return "Empresa atualizado com sucesso.";
+            }
+        }
+        return "Atualização de empresa não efetuada.";
+    }
 
     public void metodoCriarObjetos() {
         Empresa empresa = new Empresa();
@@ -135,7 +159,7 @@ public class Datasource {
         empresa2.setCnpj("456");
         empresa2.setEndereco("Rua Mirador");
 
-//        System.out.println("metodo criar empresa: ");
+        System.out.println("metodo criar empresa: ");
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Fábio Frare");
         pessoa.setCpf("123");

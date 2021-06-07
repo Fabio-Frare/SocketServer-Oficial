@@ -25,8 +25,6 @@ public class Server {
         ss = new ServerSocket(80);
         ss.setReuseAddress(true);
 
-        metodoCriarObjetos();
-
         while (true) {
 
             receberDados();
@@ -75,27 +73,27 @@ public class Server {
                 break;
             case "UPDATE":
                 if (entidade.equalsIgnoreCase("1")) {
-                    msg = datasource.ListaPessoas();
-                    System.out.println("entrou switch case update pessoa" + msg);
+                    msg = datasource.atualizaPessoa(msg);
+//                    System.out.println("entrou switch case update pessoa" + msg);
                     enviarDados(msg);
                 }
                 if (entidade.equalsIgnoreCase("2")) {
-                    msg = datasource.ListaEmpresas();
-                    System.out.println("entrou switch case update empresa" + msg);
+                    msg = datasource.atualizaEmpresa(msg);
+//                    System.out.println("entrou switch case update empresa" + msg);
                     enviarDados(msg);
                 }
                 break;
             case "GET***":
                 if (entidade.equalsIgnoreCase("1")) {
                     String cpf = msg.substring(7, msg.length());
-                    System.out.println("cpf " + cpf);
+//                    System.out.println("cpf " + cpf);
                     msg = datasource.buscaPessoa(cpf);
 //                    System.out.println("GET pessoa " + msg);
                     enviarDados(msg);
                 }
                 if(entidade.equalsIgnoreCase("2")) {
                     String cnpj = msg.substring(7, msg.length());
-                    System.out.println("CNPJ: " + cnpj);
+//                    System.out.println("CNPJ: " + cnpj);
                     msg = datasource.buscaEmpresa(cnpj);
                     enviarDados(msg);
                 }
@@ -136,26 +134,5 @@ public class Server {
 
     }
 
-    public static void metodoCriarObjetos() {
-        Empresa empresa = new Empresa();
-        empresa.setNome("Singular Sistemas");
-        empresa.setCnpj("123");
-
-        Empresa empresa2 = new Empresa();
-        empresa2.setNome("Dalila Têxtil");
-        empresa2.setCnpj("321");
-
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome("Fábio Frare");
-        pessoa.setCpf("123");
-        pessoa.setEndereco("Rua 7 de setembro");
-        pessoa.setCnpjEmpresa(empresa.getCnpj());
-
-        Datasource banco = new Datasource();
-        banco.getDadosEmpresas().add(empresa);
-        banco.getDadosEmpresas().add(empresa2);
-        banco.getDadosPessoas().add(pessoa);
-//        banco.ListaEmpresas();
-//        banco.getDadosEmpresas().forEach(System.out::println);
-    }
+    
 }

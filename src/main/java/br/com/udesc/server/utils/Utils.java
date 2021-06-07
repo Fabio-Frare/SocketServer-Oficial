@@ -22,17 +22,17 @@ public class Utils {
     public Pessoa converteStringPessoa(String msg) {
         Pessoa pessoa = new Pessoa();
 
-        String nome = msg.substring(18, 117);
+        String nome = msg.substring(18, 118);
         pessoa.setNome(reverteConversao(nome));
-//        System.out.println("\nnome: " +pessoa.getNome());
+        System.out.println("\nnome: " +pessoa.getNome());
 
-        String cpf = msg.substring(7, 17);
+        String cpf = msg.substring(7, 18);
         pessoa.setCpf(reverteConversao(cpf));
         System.out.println("\ncpf: " +pessoa.getCpf());
 
         String endereco = msg.substring(118, 217);
         pessoa.setEndereco(reverteConversao(endereco));
-//        System.out.println("\nendereço: " +pessoa.getEndereco());
+        System.out.println("\nendereço: " +pessoa.getEndereco());
 
         String cnpjEmpresa = msg.substring(218, 231);
         pessoa.setCnpjEmpresa(reverteConversao(cnpjEmpresa));
@@ -63,7 +63,7 @@ public class Utils {
         return empresa;
     }
 
-    private String reverteConversao(String variavel) {
+    public String reverteConversao(String variavel) {
         return variavel.replaceAll("\\*", " ").trim();
     }
 }
