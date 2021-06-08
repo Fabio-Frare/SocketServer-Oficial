@@ -112,7 +112,7 @@ public class Server {
                 }
                 break;
             default:
-                System.out.println("Default switch case server.");
+                System.out.println("Default switch case.");
                 break;
         }
     }
